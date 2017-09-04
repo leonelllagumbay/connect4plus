@@ -1,5 +1,5 @@
-<!--Layout Questions
-Exceeding col number
+<!--Previous Questions
+*Exceeding col number
 
 *If more than 12 columns are placed within a single row, 
 each group of extra columns will, as one unit, wrap onto a new line.
@@ -35,8 +35,8 @@ each group of extra columns will, as one unit, wrap onto a new line.
   </div>
 </div>-->
 
-<!-- REM font responsive. see global style.scss for mixins and variables -->
-
+<!-- *REM font responsive. see global style.scss for mixins and variables -->
+<!--
 <p class="test">Test</p>
 <dl class="row">
   <dt class="col-sm-3 bd-highlight">Description lists</dt>
@@ -59,7 +59,7 @@ each group of extra columns will, as one unit, wrap onto a new line.
       <dd class="col-sm-8 bd-highlight">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
     </dl>
   </dd>
-</dl>
+</dl>-->
 
 
 <!-- Utilities -->
@@ -78,7 +78,7 @@ each group of extra columns will, as one unit, wrap onto a new line.
 <!-- Border-radius -->
 <!--<div class="container border-radius">
   <div class="row">
-    <img src="assets/images/red.PNG" alt="Red" class="rounded">
+    <img src="assets/images/cssAwesome.PNG" alt="Red" class="rounded">
     <img src="assets/images/red.PNG" alt="Red" class="rounded-top">
     <img src="assets/images/red.PNG" alt="Red" class="rounded-right">
     <img src="assets/images/red.PNG" alt="Red" class="rounded-bottom">
@@ -120,7 +120,7 @@ each group of extra columns will, as one unit, wrap onto a new line.
     <a href="#" class="text-warning pr-2">Warning link</a>
     <a href="#" class="text-danger pr-2">Danger link</a>
   </div>
-  <div class="row">
+  <div class="row mt-4">
     <div class="bg-primary text-white mt-1">Nullam id dolor id nibh ultricies vehicula ut id elit.</div>
     <div class="bg-success text-white mt-1">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</div>
     <div class="bg-info text-white mt-1">Maecenas sed diam eget risus varius blandit sit amet non magna.</div>
@@ -131,15 +131,24 @@ each group of extra columns will, as one unit, wrap onto a new line.
   </div>
 </div>-->
 
-<!-- Flex-box -->
+<!-- Flex
+Quickly manage the layout, alignment, and sizing of grid columns, 
+navigation, components, and more with a full suite of responsive 
+flexbox utilities. For more complex implementations, 
+custom CSS may be necessary.
+
+
+Flex-box -->
 
 <!-- Enable flex behaviors -->
-<!--<div class="container-fluid">
+<!--<div class="container-fluid">-->
   
-    <div class="d-flex p-2 bd-highlight mt-5">I'm a flexbox container!</div>
+<!--    <div class="d-flex p-2 bd-highlight mt-5">I'm a flexbox container!</div>-->
+<!--    <div class="d-inline-flex p-2 bd-highlight mt-5">I'm an inline flexbox container!</div>
     <div class="d-inline-flex p-2 bd-highlight mt-5">I'm an inline flexbox container!</div>
+    <div class="d-inline-flex p-2 bd-highlight mt-5">I'm an inline flexbox container!</div>-->
 
-</div>-->
+<!--</div>-->
 
 <!--
 Responsive variations also exist for .d-flex and .d-inline-flex.
@@ -156,7 +165,17 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 .d-xl-inline-flex
 -->
 
-<!-- Flex Direction -->
+<!-- Flex Direction 
+Set the direction of flex items in a flex container with 
+direction utilities. In most cases you can omit the 
+horizontal class here as the browser default is row. 
+However, you may encounter situations where you needed to 
+explicitly set this value (like responsive layouts).
+
+Use .flex-row to set a horizontal direction (the browser default), 
+or .flex-row-reverse to start the horizontal 
+direction from the opposite side.
+-->
 <!--<div class="container-fluid">
   
   <div class="d-flex flex-row bd-highlight mt-5">
@@ -169,7 +188,12 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
     <div class="p-2 bd-highlight">Flex item 2</div>
     <div class="p-2 bd-highlight">Flex item 3</div>
   </div>
-
+-->
+<!--
+Use .flex-column to set a vertical direction, 
+or .flex-column-reverse to start the vertical direction from the opposite side.
+-->
+<!--
   <div class="d-flex flex-column bd-highlight mt-5">
     <div class="p-2 bd-highlight">Flex item 1</div>
     <div class="p-2 bd-highlight">Flex item 2</div>
@@ -205,7 +229,12 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 .flex-xl-column
 .flex-xl-column-reverse-->
 
-<!-- Flexbox - Justify Content -->
+<!-- Flexbox - Justify Content 
+Use justify-content utilities on flexbox containers to change the 
+alignment of flex items on the main axis (the x-axis to start, 
+y-axis if flex-direction: column). Choose from start 
+(browser default), end, center, between, or around.
+-->
 <!--<div class="container-fluid">
   
     <div class="d-flex justify-content-start bd-highlight mt-5">
@@ -267,7 +296,12 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 .justify-content-xl-between
 .justify-content-xl-around-->
 
-<!-- Flexbox - Align Items -->
+<!-- Flexbox - Align Items 
+Use align-items utilities on flexbox containers to change the alignment of 
+flex items on the cross axis (the y-axis to start, x-axis if flex-direction: column). 
+Choose from start, end, center, baseline, or stretch (browser default).
+
+-->
 <!--<div class="container-fluid">
   
     <div class="d-flex align-items-start bd-highlight mb-3" style="height: 100px;">
@@ -329,7 +363,14 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 .align-items-xl-baseline
 .align-items-xl-stretch-->
 
-<!-- Flexbox - Align self -->
+<!-- Flexbox - Align self 
+Use align-self utilities on flexbox items to individually change 
+their alignment on the cross axis (the y-axis to start, 
+x-axis if flex-direction: column). Choose from the same 
+options as align-items: start, end, center, baseline, 
+or stretch (browser default).
+-->
+
 <!--<div class="container-fluid">
   
     <div class="d-flex  bd-highlight mb-3" style="height: 100px;">
@@ -392,7 +433,11 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 .align-self-xl-baseline
 .align-self-xl-stretch-->
 
-<!-- Flexbox - Auto margins -->
+<!-- Flexbox - Auto margins 
+Flexbox can do some pretty awesome things 
+when you mix flex alignments with auto margins.
+-->
+
 <!--<div class="container-fluid">
   
   <div class="d-flex justify-content-end bd-highlight mb-3 mt-4">
@@ -409,13 +454,18 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 
   <div class="d-flex justify-content-start bd-highlight mb-3 mt-4">
     <div class="mr-auto p-2 bd-highlight">Flex item 1</div>
-    <div class="p-2 bd-highlight">Flex item 2</div>
+    <div class="p-2 bd-highlight bg-success">Flex item 2</div>
     <div class="ml-auto p-2 bd-highlight">Flex item 3</div>
   </div>
 
 </div>-->
 
-<!-- Flexbox - Auto margins -->
+<!-- Flexbox - with align-items
+Similarly, move one flex item to the top or bottom of a container 
+by mixing align-items, flex-direction: column, 
+and margin-top: auto or margin-bottom: auto.
+-->
+
 <!--<div class="container-fluid">
   
   <div class="d-flex align-items-start flex-column bd-highlight mb-3 mt-4" style="height: 200px;">
@@ -444,43 +494,46 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 
 </div>-->
 
-<!-- Flexbox - Wrap -->
-<!--<div class="container-fluid">
-  
-  <div class="d-flex flex-nowrap bd-highlight mb-3 mt-4">
-    <div class="p-2 bd-highlight">Flex item 1</div>
-    <div class="p-2 bd-highlight">Flex item 2</div>
-    <div class="p-2 bd-highlight">Flex item 3</div>
-    <div class="p-2 bd-highlight">Flex item 4</div>
-    <div class="p-2 bd-highlight">Flex item 5</div>
-    <div class="p-2 bd-highlight">Flex item 6</div>
-    <div class="p-2 bd-highlight">Flex item 7</div>
-    <div class="p-2 bd-highlight">Flex item 8</div>
-  </div>
-  
-  <div class="d-flex flex-wrap mb-3 mt-4">
-    <div class="p-2 bd-highlight">Flex item 1</div>
-    <div class="p-2 bd-highlight">Flex item 2</div>
-    <div class="p-2 bd-highlight">Flex item 3</div>
-    <div class="p-2 bd-highlight">Flex item 4</div>
-    <div class="p-2 bd-highlight">Flex item 5</div>
-    <div class="p-2 bd-highlight">Flex item 6</div>
-    <div class="p-2 bd-highlight">Flex item 7</div>
-    <div class="p-2 bd-highlight">Flex item 8</div>
-  </div>
-  
-  <div class="d-flex flex-wrap-reverse mb-3 mt-4">
-    <div class="p-2 bd-highlight">Flex item 1</div>
-    <div class="p-2 bd-highlight">Flex item 2</div>
-    <div class="p-2 bd-highlight">Flex item 3</div>
-    <div class="p-2 bd-highlight">Flex item 4</div>
-    <div class="p-2 bd-highlight">Flex item 5</div>
-    <div class="p-2 bd-highlight">Flex item 6</div>
-    <div class="p-2 bd-highlight">Flex item 7</div>
-    <div class="p-2 bd-highlight">Flex item 8</div>
-  </div>
+<!-- Flexbox - Wrap 
+Change how flex items wrap in a flex container. 
+-->
 
-</div>-->
+<!--<div class="container-fluid">-->
+  
+<!--  <div class="d-flex flex-nowrap bd-highlight mb-3 mt-4">
+    <div class="p-2 bd-highlight">Flex item 1</div>
+    <div class="p-2 bd-highlight">Flex item 2</div>
+    <div class="p-2 bd-highlight">Flex item 3</div>
+    <div class="p-2 bd-highlight">Flex item 4</div>
+    <div class="p-2 bd-highlight">Flex item 5</div>
+    <div class="p-2 bd-highlight">Flex item 6</div>
+    <div class="p-2 bd-highlight">Flex item 7</div>
+    <div class="p-2 bd-highlight">Flex item 8</div>
+  </div>-->
+  
+<!--  <div class="d-flex flex-wrap mb-3 mt-4">
+    <div class="p-2 bd-highlight">Flex item 1</div>
+    <div class="p-2 bd-highlight">Flex item 2</div>
+    <div class="p-2 bd-highlight">Flex item 3</div>
+    <div class="p-2 bd-highlight">Flex item 4</div>
+    <div class="p-2 bd-highlight">Flex item 5</div>
+    <div class="p-2 bd-highlight">Flex item 6</div>
+    <div class="p-2 bd-highlight">Flex item 7</div>
+    <div class="p-2 bd-highlight">Flex item 8</div>
+  </div>-->
+  
+<!--  <div class="d-flex flex-wrap-reverse mb-3 mt-4">
+    <div class="p-2 bd-highlight">Flex item 1</div>
+    <div class="p-2 bd-highlight">Flex item 2</div>
+    <div class="p-2 bd-highlight">Flex item 3</div>
+    <div class="p-2 bd-highlight">Flex item 4</div>
+    <div class="p-2 bd-highlight">Flex item 5</div>
+    <div class="p-2 bd-highlight">Flex item 6</div>
+    <div class="p-2 bd-highlight">Flex item 7</div>
+    <div class="p-2 bd-highlight">Flex item 8</div>
+  </div>-->
+
+<!--</div>-->
 
 <!--Responsive variations also exist for flex-wrap.
 
@@ -500,39 +553,93 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 .flex-xl-wrap
 .flex-xl-wrap-reverse-->
 
-<!-- Flexbox - Order (bug)-->
+<!-- Flexbox - Order
+Change the visual order of specific flex 
+items with a handful of order utilities.
+-->
+
 <!--<div class="container-fluid">
   
   <div class="d-flex flex-nowrap bd-highlight mb-3 mt-4">
-    <div class="order-last p-2 bd-highlight">Flex item 1</div>
-    <div class="p-2 bd-highlight">Flex item 2</div> 
-    <div class="order-first p-2 bd-highlight">Flex item 3</div>
+    <div class="order-3 p-2 bd-highlight">Flex item 1</div>
+    <div class="order-2 p-2 bd-highlight">Flex item 2</div> 
+    <div class="order-1 p-2 bd-highlight">Flex item 3</div>
   </div>
   
 </div>-->
 
 <!--Responsive variations also exist for order.
 
-.order-first
-.order-last
-.order-unordered
-.order-sm-first
-.order-sm-last
-.order-sm-unordered
-.order-md-first
-.order-md-last
-.order-md-unordered
-.order-lg-first
-.order-lg-last
-.order-lg-unordered
-.order-xl-first
-.order-xl-last
-.order-xl-unordered-->
+.order-1
+.order-2
+.order-3
+.order-4
+.order-5
+.order-6
+.order-7
+.order-8
+.order-9
+.order-10
+.order-11
+.order-12
+.order-sm-1
+.order-sm-2
+.order-sm-3
+.order-sm-4
+.order-sm-5
+.order-sm-6
+.order-sm-7
+.order-sm-8
+.order-sm-9
+.order-sm-10
+.order-sm-11
+.order-sm-12
+.order-md-1
+.order-md-2
+.order-md-3
+.order-md-4
+.order-md-5
+.order-md-6
+.order-md-7
+.order-md-8
+.order-md-9
+.order-md-10
+.order-md-11
+.order-md-12
+.order-lg-1
+.order-lg-2
+.order-lg-3
+.order-lg-4
+.order-lg-5
+.order-lg-6
+.order-lg-7
+.order-lg-8
+.order-lg-9
+.order-lg-10
+.order-lg-11
+.order-lg-12
+.order-xl-1
+.order-xl-2
+.order-xl-3
+.order-xl-4
+.order-xl-5
+.order-xl-6
+.order-xl-7
+.order-xl-8
+.order-xl-9
+.order-xl-10
+.order-xl-11
+.order-xl-12-->
 
-<!-- Flexbox - Align content -->
-<!--<div class="container-fluid">
+<!-- Flexbox - Align content 
+Use align-content utilities on flexbox containers to align flex items together 
+on the cross axis. Choose from start (browser default), end, 
+center, between, around, or stretch.
+-->
+
+<!--<div class="container-fluid">-->
   
-  <div class="d-flex align-content-start flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
+<!--  <div class="d-flex align-content-start flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
     <div class="p-2 bd-highlight">Flex item 1</div>
     <div class="p-2 bd-highlight">Flex item 2</div> 
     <div class="p-2 bd-highlight">Flex item 3</div>
@@ -543,9 +650,9 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
     <div class="p-2 bd-highlight">Flex item 8</div>
     <div class="p-2 bd-highlight">Flex item 9</div>
     <div class="p-2 bd-highlight">Flex item 10</div>
-  </div>
+  </div>-->
   
-  <div class="d-flex align-content-end flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
+<!--  <div class="d-flex align-content-end flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
     <div class="p-2 bd-highlight">Flex item 1</div>
     <div class="p-2 bd-highlight">Flex item 2</div> 
     <div class="p-2 bd-highlight">Flex item 3</div>
@@ -556,9 +663,9 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
     <div class="p-2 bd-highlight">Flex item 8</div>
     <div class="p-2 bd-highlight">Flex item 9</div>
     <div class="p-2 bd-highlight">Flex item 10</div>
-  </div>
+  </div>-->
   
-  <div class="d-flex align-content-center flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
+<!--  <div class="d-flex align-content-center flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
     <div class="p-2 bd-highlight">Flex item 1</div>
     <div class="p-2 bd-highlight">Flex item 2</div> 
     <div class="p-2 bd-highlight">Flex item 3</div>
@@ -569,9 +676,9 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
     <div class="p-2 bd-highlight">Flex item 8</div>
     <div class="p-2 bd-highlight">Flex item 9</div>
     <div class="p-2 bd-highlight">Flex item 10</div>
-  </div>
+  </div>-->
   
-  <div class="d-flex align-content-between  flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
+<!--  <div class="d-flex align-content-between  flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
     <div class="p-2 bd-highlight">Flex item 1</div>
     <div class="p-2 bd-highlight">Flex item 2</div> 
     <div class="p-2 bd-highlight">Flex item 3</div>
@@ -582,9 +689,9 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
     <div class="p-2 bd-highlight">Flex item 8</div>
     <div class="p-2 bd-highlight">Flex item 9</div>
     <div class="p-2 bd-highlight">Flex item 10</div>
-  </div>
+  </div>-->
   
-  <div class="d-flex align-content-around  flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
+<!--  <div class="d-flex align-content-around  flex-wrap bd-highlight mb-3 mt-4" style="height: 200px;">
     <div class="p-2 bd-highlight">Flex item 1</div>
     <div class="p-2 bd-highlight">Flex item 2</div> 
     <div class="p-2 bd-highlight">Flex item 3</div>
@@ -595,9 +702,9 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
     <div class="p-2 bd-highlight">Flex item 8</div>
     <div class="p-2 bd-highlight">Flex item 9</div>
     <div class="p-2 bd-highlight">Flex item 10</div>
-  </div>
-  
-</div>-->
+  </div>-->
+   
+<!--</div>-->
 
 <!--Responsive variations also exist for align-content.
 
@@ -628,8 +735,10 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 .align-content-xl-stretch-->
 
 
-
-<!--Display Property-->
+<!--Display Property
+Quickly and responsively toggle the display value of components 
+and more with our display utilities.
+-->
 
 <!--<div class="container-fluid">
   
@@ -703,6 +812,8 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 
 
 <!-- Position
+Use these shorthand utilities for quickly 
+configuring the position of an element.
 -->
 
 <!--<div class="container-fluid">
@@ -723,42 +834,47 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 
 
 <!-- Responsive embeds -->
-<!--<div class="container-fluid">
+<!--<div class="container-fluid">-->
   
-  <div class="embed-responsive embed-responsive-16by9">
+<!--  <div class="embed-responsive embed-responsive-16by9">
     <iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-  </div>
+  </div>-->
   
-   21:9 aspect ratio 
+<!--   21:9 aspect ratio 
   <div class="embed-responsive embed-responsive-21by9">
     <iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
-  </div>
+  </div>-->
   
-   16:9 aspect ratio 
+<!--   16:9 aspect ratio 
   <div class="embed-responsive embed-responsive-16by9">
     <iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
-  </div>
+  </div>-->
   
-   4:3 aspect ratio 
+<!--   4:3 aspect ratio 
   <div class="embed-responsive embed-responsive-4by3">
     <iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
-  </div>
+  </div>-->
 
-   1:1 aspect ratio 
+<!--   1:1 aspect ratio 
   <div class="embed-responsive embed-responsive-1by1">
     <iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
-  </div>
+  </div>-->
 
-</div>-->
+<!--</div>-->
 
-<!-- Responsive floats -->
+
+
+<!-- Responsive floats 
+Toggle floats on any element, across any breakpoint, 
+using our responsive float utilities.
+-->
 <!--<div class="container-fluid">
   <div class="float-left">Float left on all viewport sizes</div><br>
   <div class="float-right">Float right on all viewport sizes</div><br>
   <div class="float-none">Don't float on all viewport sizes</div><br>
 
   <div class="float-sm-left">Float left on viewports sized SM (small) or wider</div><br>
-  <div class="float-md-left">Float left on viewports sized MD (medium) or wider</div><br>
+  <div class="float-md-right">Float left on viewports sized MD (medium) or wider</div><br>
   <div class="float-lg-left">Float left on viewports sized LG (large) or wider</div><br>
   <div class="float-xl-left">Float left on viewports sized XL (extra-large) or wider</div><br>
 </div>-->
@@ -771,7 +887,12 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
   @include float-right;
 }-->
 
-<!-- Screen Readers -->
+
+
+<!-- Screen Readers 
+Use screenreader utilities to hide elements 
+on all devices execept screen readers.
+-->
 <!--<div class="container-fluid">
   <a  href="#content">Skip to main content not screen reader only</a>
   <a class="sr-only sr-only-focusable" href="#content">Skip to main content screen reader only</a>
@@ -783,7 +904,11 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
   @include sr-only-focusable;
 }-->
 
-<!-- Sizing -->
+
+<!-- Sizing 
+Easily make an element as wide or as tall (relative to its parent) 
+with our width and height utilities.
+-->
 <!--<div class="container-fluid">
   <div class="w-25 p-3" style="background-color: #eee;">Width 25%</div>
   <div class="w-50 p-3" style="background-color: #eee;">Width 50%</div>
@@ -804,9 +929,13 @@ Responsive variations also exist for .d-flex and .d-inline-flex.
 </div>-->
 
 
-<!-- Spacing -->
+<!-- Spacing 
+Bootstrap includes a wide range of shorthand responsive margin 
+and padding utility classes to modify an element's appearance.
+-->
 <!--
-The classes are named using the format {property}{sides}-{size} for xs and {property}{sides}-{breakpoint}-{size} for sm, md, lg, and xl.
+The classes are named using the format {property}{sides}-{size} 
+for xs and {property}{sides}-{breakpoint}-{size} for sm, md, lg, and xl.
 
 Where property is one of:
 
@@ -848,10 +977,12 @@ Where size is one of:
   padding: $spacer-y $spacer-x !important;
 }
 
-
-
-Horizontal Centering
+.py-4 {}
 -->
+
+
+<!--Horizontal Centering-->
+
 
 <!--<div class="container-fluid">
   <div class="mx-auto mt-5 bg-success" style="width: 200px;">
@@ -862,35 +993,33 @@ Horizontal Centering
 
 <!--Typography
 The following utilities can be used to add additional styles to texts.
-
-
 -->
 
 <!--Text alignment-->
-<!--<div class="container-fluid">
-  <p class="text-justify">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
-  
-  <div class="card mt-5 mb-5">
-    <div class="card-block text-nowrap">
-      Curabitur blandit tempus ardua ridiculus sed magna.
-    </div>
-  </div>
-  
-  <p class="text-left bg-warning">Left aligned text on all viewport sizes.</p>
-  <p class="text-center">Center aligned text on all viewport sizes.</p>
-  <p class="text-right">Right aligned text on all viewport sizes.</p>
+<!--<div class="container-fluid">-->
+<!--  <p class="text-justify">Ambitioni dedisse scripsisse iudicaretur. 
+    Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, 
+    eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. 
+    At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi 
+    concilium totius Galliae in diem certam indicere. 
+    Cras mattis iudicium purus sit amet fermentum.
+  </p>-->
 
-  <p class="text-sm-left">Left aligned text on viewports sized SM (small) or wider.</p>
+<!--  <p class="text-left bg-warning">Left aligned text on all viewport sizes.</p>
+  <p class="text-center">Center aligned text on all viewport sizes.</p>
+  <p class="text-right">Right aligned text on all viewport sizes.</p>-->
+
+<!--  <p class="text-sm-left">Left aligned text on viewports sized SM (small) or wider.</p>
   <p class="text-md-left">Left aligned text on viewports sized MD (medium) or wider.</p>
   <p class="text-lg-left">Left aligned text on viewports sized LG (large) or wider.</p>
-  <p class="text-xl-left">Left aligned text on viewports sized XL (extra-large) or wider.</p>
-</div>-->
+  <p class="text-xl-left">Left aligned text on viewports sized XL (extra-large) or wider.</p>-->
+<!--</div>-->
 
 <!--Text transform-->
 <!--<div class="container-fluid">
-  <p class="text-lowercase">Lowercased text.</p>
-  <p class="text-uppercase">Uppercased text.</p>
-  <p class="text-capitalize">CapiTaliZed text.</p>
+  <p class="text-lowercase display-3">Lowercased text.</p>
+  <p class="text-uppercase display-3">Uppercased text.</p>
+  <p class="text-capitalize display-3">CapiTaliZed text.</p>
 </div>-->
 
 <!--Font weight and italics-->
@@ -901,17 +1030,17 @@ The following utilities can be used to add additional styles to texts.
 </div>-->
 
 <!--Vertical Alignment-->
-<!--<div class="container-fluid" style="line-height: 3">
-  <span class="align-baseline pr-2">baseline</span>
+<!--<div class="container-fluid" style="line-height: 3">-->
+<!--  <span class="align-baseline pr-2">baseline</span>
   <span class="align-top pr-2">top</span>
   <span class="align-middle pr-2">middle</span>
   <span class="align-bottom pr-2">bottom</span>
   <span class="align-text-top pr-2">text-top</span>
-  <span class="align-text-bottom pr-2">text-bottom</span>
+  <span class="align-text-bottom pr-2">text-bottom</span>-->
 
-  With table cells
+<!--  With table cells-->
 
-  <table style="height: 100px;">
+<!--  <table style="height: 100px;">
     <tbody>
       <tr>
         <td class="align-baseline bg-warning">baseline</td>
@@ -922,8 +1051,8 @@ The following utilities can be used to add additional styles to texts.
         <td class="align-text-bottom bg-success">text-bottom</td>
       </tr>
     </tbody>
-  </table>
-</div>-->
+  </table>-->
+<!--</div>-->
 
 
 
@@ -934,6 +1063,7 @@ The following utilities can be used to add additional styles to texts.
 Provide contextual feedback messages for typical user actions 
 with the handful of available and flexible alert messages.
 -->
+
 <!--<div class="container-fluid">
   <div class="alert alert-success mt-5" role="alert">
     <strong>Well done!</strong> You successfully read this important alert message.
@@ -1002,11 +1132,6 @@ $('#myAlert').on('closed.bs.alert', function () {
 })
 
 -->
-<!--<div class="container-fluid">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>-->
 
 <!--<div class="alert alert-warning alert-dismissible fade show" role="alert" id="balert">
   <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -1015,7 +1140,9 @@ $('#myAlert').on('closed.bs.alert', function () {
   <strong>Holy guacamole!</strong> You should check in on some of those fields below.
 </div>-->
 
-<!--Alert with Angular 4-->
+
+
+<!--Alert with Angular-->
 <!--<div class="container">
   <p *ngFor="let alert of alerts">
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
@@ -1028,33 +1155,33 @@ $('#myAlert').on('closed.bs.alert', function () {
 <!-- Badges 
   Small and adaptive tag for adding context to just about any content.
 -->
-<!--<div class="container">
-  <h1>Example heading <span class="badge badge-primary">New</span></h1>
-  <h2>Example heading <span class="badge badge-primary">New</span></h2>
+<!--<div class="container">-->
+<!--  <h1>Example heading <span class="badge badge-primary">New</span></h1>
+  <h2>Example heading <span class="badge badge-success">New</span></h2>
   <h3>Example heading <span class="badge badge-primary">New</span></h3>
   <h4>Example heading <span class="badge badge-primary">New</span></h4>
   <h5>Example heading <span class="badge badge-primary">New</span></h5>
-  <h6>Example heading <span class="badge badge-primary">New</span></h6>
+  <h6>Example heading <span class="badge badge-primary">New</span></h6>-->
   
-  Contextual variations
-  <span class="badge badge-default mt-4">Default</span>
+<!--  Contextual variations-->
+<!--  <span class="badge badge-default mt-4">Default</span>
   <span class="badge badge-primary">Primary</span>
   <span class="badge badge-success">Success</span>
   <span class="badge badge-info">Info</span>
   <span class="badge badge-warning">Warning</span>
-  <span class="badge badge-danger">Danger</span>
+  <span class="badge badge-danger">Danger</span>-->
   
-    Pill badges
-  <div class="row mt-4">
+<!--    Pill badges-->
+<!--  <div class="row mt-4">
     <span class="badge badge-pill badge-default">Default</span>
     <span class="badge badge-pill badge-primary">Primary</span>
     <span class="badge badge-pill badge-success">Success</span>
     <span class="badge badge-pill badge-info">Info</span>
     <span class="badge badge-pill badge-warning">Warning</span>
     <span class="badge badge-pill badge-danger">Danger</span>
-  </div>
+  </div>-->
   
-</div>-->
+<!--</div>-->
 
 <!--Breadcrumb
 Indicate the current page’s location within a navigational hierarchy. 
@@ -1075,28 +1202,28 @@ Use Bootstrap’s custom button styles for actions in forms, dialogs, and more.
 Includes support for a handful of contextual variations, sizes, states, and more.
 -->
 <!--<div class="container">
-  <div class="row mt-4">
-     Provides extra visual weight and identifies the primary action in a set of buttons
-    <button type="button" class="btn btn-primary mr-2 mt-1">Primary</button>
+  <div class="row mt-4">-->
+<!--     Provides extra visual weight and identifies the primary action in a set of buttons-->
+<!--    <button type="button" class="btn btn-primary mr-2 mt-1">Primary</button>-->
 
-     Secondary, outline button 
-    <button type="button" class="btn btn-secondary mr-2 mt-1">Secondary</button>
+<!--     Secondary, outline button -->
+<!--    <button type="button" class="btn btn-secondary mr-2 mt-1">Secondary</button>-->
 
-     Indicates a successful or positive action 
-    <button type="button" class="btn btn-success mr-2 mt-1">Success</button>
+<!--     Indicates a successful or positive action -->
+<!--    <button type="button" class="btn btn-success mr-2 mt-1">Success</button>-->
 
-     Contextual button for informational alert messages 
-    <button type="button" class="btn btn-info mr-2 mt-1">Info</button>
+<!--     Contextual button for informational alert messages -->
+<!--    <button type="button" class="btn btn-info mr-2 mt-1">Info</button>-->
 
-     Indicates caution should be taken with this action 
-    <button type="button" class="btn btn-warning mr-2 mt-1">Warning</button>
+<!--     Indicates caution should be taken with this action -->
+<!--    <button type="button" class="btn btn-warning mr-2 mt-1">Warning</button>-->
 
-     Indicates a dangerous or potentially negative action 
-    <button type="button" class="btn btn-danger mr-2 mt-1">Danger</button>
+<!--     Indicates a dangerous or potentially negative action -->
+<!--    <button type="button" class="btn btn-danger mr-2 mt-1">Danger</button>-->
 
-     Deemphasize a button by making it look like a link while maintaining button behavior 
-    <button type="button" class="btn btn-link mt-1">Link</button>
-  </div>
+<!--     Deemphasize a button by making it look like a link while maintaining button behavior -->
+<!--    <button type="button" class="btn btn-link mt-1">Link</button>-->
+<!--  </div>
 </div>-->
 
 <!-- Buttons. Button tags
@@ -1148,24 +1275,6 @@ ones to remove all background images and colors on any button.
   </div>
 </div>-->
 
-<!-- Buttons. Sizes
--->
-<!--<div class="container">
-  <div class="row mt-4">
-    <button type="button" class="btn btn-primary btn-lg mr-2">Large button</button>
-    <button type="button" class="btn btn-secondary btn-lg  mr-2">Large button</button>
-  </div>
-  
-  <div class="row mt-4">
-    <button type="button" class="btn btn-primary btn-sm mr-2">Large button</button>
-    <button type="button" class="btn btn-secondary btn-sm  mr-2">Large button</button>
-  </div>
-  
-  <div class="row mt-4">
-    <button type="button" class="btn btn-primary btn-sm btn-block mr-2">Large button</button>
-    <button type="button" class="btn btn-secondary btn-sm btn-block mr-2">Large button</button>
-  </div>
-</div>-->
 
 <!-- Buttons. Active State
 Buttons will appear pressed (with a darker background, darker border, and inset shadow) when active.
@@ -1505,9 +1614,9 @@ the card you need, or throw everything in there.
 <!-- Cards. Header and footer
 Add an optional header and/or footer within a card.
 -->
-<!--
-<div class="container">
-  <div class="row mt-4">
+
+<!--<div class="container">-->
+<!--  <div class="row mt-4">
     <div class="card">
       <div class="card-header">
         Featured
@@ -1518,10 +1627,10 @@ Add an optional header and/or footer within a card.
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
-  </div>
+  </div>-->
   
-  Card headers can be styled by adding .card-header to <h*> elements.
-  <div class="row mt-4">
+<!--  Card headers can be styled by adding .card-header to <h*> elements.-->
+<!--  <div class="row mt-4">
     <div class="card">
       <h3 class="card-header">Featured</h3>
       <div class="card-block p-3">
@@ -1530,10 +1639,10 @@ Add an optional header and/or footer within a card.
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
-  </div>
+  </div>-->
 
-  Quote
-  <div class="row mt-4">
+<!--  Quote-->
+<!--  <div class="row mt-4">
     <div class="card">
       <div class="card-header">
         Quote
@@ -1545,10 +1654,10 @@ Add an optional header and/or footer within a card.
         </blockquote>
       </div>
     </div>
-  </div>
+  </div>-->
 
-  Featured
-  <div class="row mt-4 mb-3">
+<!--  Featured center-->
+<!--  <div class="row mt-4 mb-3">
     <div class="card text-center">
       <div class="card-header">
         Featured
@@ -1562,8 +1671,8 @@ Add an optional header and/or footer within a card.
         2 days ago
       </div>
     </div>
-  </div>
-</div>-->
+  </div>-->
+<!--</div>-->
 
 
 <!-- Cards. Sizing
@@ -2224,9 +2333,9 @@ included Bootstrap dropdown JavaScript plugin. They’re
 toggled by clicking, not by hovering; this is an intentional design decision.
 -->
 <!--<div class="container">
-  <div class="row mt-4">
-     Example split danger button 
-    <div class="btn-group"> 
+  <div class="row mt-4">-->
+<!--     Example split danger button -->
+<!--    <div class="btn-group"> 
       <button type="button" class="btn btn-danger">Action</button>
       <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="sr-only">Toggle Dropdown</span>
@@ -2238,8 +2347,8 @@ toggled by clicking, not by hovering; this is an intentional design decision.
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Separated link</a>
       </div>
-    </div>
-  </div>
+    </div>-->
+<!--  </div>
 </div>-->
 
 
@@ -2630,7 +2739,7 @@ $('#someTab').tab('show')
     <a class="nav-link disabled" href="#">Disabled</a>
   </nav>
   
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs mt-4">
     <li class="nav-item">
       <a class="nav-link active" href="#">Active</a>
     </li>
@@ -2689,7 +2798,7 @@ general performance, such as in search results or inboxes.
 -->
 <!--<div class="container mt-4">
   <nav aria-label="Page navigation example">
-    <ul class="pagination">
+    <ul class="pagination ">
       <li class="page-item"><a class="page-link" href="#">Previous</a></li>
       <li class="page-item"><a class="page-link" href="#">1</a></li>
       <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -2845,7 +2954,7 @@ Exported as	ngbDatepicker
 
 Rating directive that will take care of visualising a star rating bar.
 -->
-<!--<div class="container mt-4">
+<div class="container mt-4">
   <p>Custom rating template provided as child element</p>
 
   <ngb-rating [(rate)]="currentRate"> 
@@ -2876,7 +2985,7 @@ Rating directive that will take care of visualising a star rating bar.
   <pre>Rate: <b>{{currentRate}}</b></pre>
   <button class="btn btn-sm btn-outline-primary" (click)="currentRate = 1.35">1.35</button>
   <button class="btn btn-sm btn-outline-primary" (click)="currentRate = 4.72">4.72</button>
-</div>-->
+</div>
 
 <!-- Bootstrap Timepicker in Angular
 A lightweight & configurable timepicker directive.
@@ -2908,3 +3017,18 @@ Selector	input[ngbTypeahead]
   <hr>
   <pre>Model: {{ model2 | json }}</pre>
 </div>-->
+
+
+
+<!-- Customizing the Alert Component. See customized JS file in dump folder -->
+<!--<div class="alert alert-info" style="position: fixed; margin-top: 4em; width: 90%; margin-left: 4em;">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <a href="#" class="close minimize" data-minimize="alert" aria-label="minimize">_</a>
+  <a href="#" class="close expand hidden-xs-up" data-expand="alert" aria-label="expand">+</a>
+  <div class="alert-content">
+    <h4 class="alert-heading">Well done!</h4>
+    <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+    <strong><i class="fa fa-exclamation"></i>Special Offers - </strong>
+    <span>2 FOR 1 PRINTS TODAY ONLY WITH PROMO CODE <span style="font-style: italic">BOOTSTRAP</span></span>
+  </div>
+</div> -->

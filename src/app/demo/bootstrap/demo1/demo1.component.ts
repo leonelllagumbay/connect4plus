@@ -84,8 +84,10 @@ export class Demo1Component implements OnInit {
   }
 
   public closeAlert(alert: IAlert) {
+    console.log("alert", alert);
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+    
   }
 
   public reset() {

@@ -13,29 +13,24 @@
   overflow: hidden;
   color: red;
 }
-
-
-    
 /*
-html {
-  font-size: 14px;
-}
-
-@include media-breakpoint-up(sm) {
-  html {
-    font-size: 16px;
-  }
-}
-
-@include media-breakpoint-up(md) {
-  html {
-    font-size: 20px;
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  html {
-    font-size: 28px;
-  }
+.borders span {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
 }*/
- 
+
+.alert-minimize {
+  width: 60px;
+}
+.alert-minimize .alert-content {
+  display: none;
+}
+.alert-minimize.close {
+  display: block;
+}
+
+.hidden-xs-up {
+  display: none;
+}
+
