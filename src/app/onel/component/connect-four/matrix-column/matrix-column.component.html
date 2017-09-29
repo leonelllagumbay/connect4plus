@@ -1,0 +1,8 @@
+<app-disc-cell class="row" 
+    *ngFor="let column of columnMatrix; let i = index;" 
+    [cellData]="column"
+    (mouseover)="matrixColumnHover(i)"
+    (mouseout)="matrixColumnOut()"
+    [class.bg-primary]="isActive"
+></app-disc-cell>
+

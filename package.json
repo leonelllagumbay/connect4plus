@@ -13,7 +13,7 @@
     "postinstall": "ng build --env=prod"
   },
   "engines": {
-    "node": "~6.10.0",
+    "node": "~6.11.2",
     "npm": "~3.10.10"
   },
   "private": true,

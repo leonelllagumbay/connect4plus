@@ -1,0 +1,4 @@
+<div class="m-1 p-4 rounded-circle" *ngFor="let cell of cellData" 
+    [ngClass]="{'bg-secondary': cell==0, 'bg-danger': cell==1, 'bg-warning': cell==2}">
+  <span style="visibility: hidden;">&nbsp;test</span>
+</div>
