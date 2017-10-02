@@ -22,7 +22,7 @@ import { DynamicInfoComponent } from './demo3/component/dynamic-info/dynamic-inf
 import { SocketIoModule, SocketIoConfig} from 'ng-socket-io';
 
 const config: SocketIoConfig = {
-  url: 'http://localhost:8988', options: {}
+  url: 'https://calm-meadow-29333.herokuapp.com:8988', options: {}
 };
 
 @NgModule({
