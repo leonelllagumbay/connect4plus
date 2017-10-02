@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-disc-cell',
@@ -6,11 +6,11 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./disc-cell.component.scss']
 })
 export class DiscCellComponent implements OnInit {
-  @Input() cellData: any;
+  @Input() discInfo: any;
   constructor() { }
 
   ngOnInit() {
-    console.log('cell data', this.cellData);
+    console.log('discInfo', this.discInfo);
   }
 
 }

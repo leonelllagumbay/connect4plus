@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-matrix-column',
@@ -6,20 +6,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./matrix-column.component.scss']
 })
 export class MatrixColumnComponent implements OnInit {
-  @Input() columnMatrix: any;
+  @Input() matrixColumn: any;
   isActive: boolean;
   constructor() { }
 
   ngOnInit() {
     this.isActive = false;
-    console.log('matrix column', this.columnMatrix);
+    console.log('matrix column', this.matrixColumn);
   }
 
-  matrixColumnHover(columnNumber) {
+  matrixMouseOver() {
     this.isActive = true;
   }
 
-  matrixColumnOut() {
+  matrixMouseOut() {
     this.isActive = false;
   }
 }

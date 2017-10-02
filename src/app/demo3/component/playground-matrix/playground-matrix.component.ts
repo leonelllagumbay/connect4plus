@@ -7,20 +7,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PlaygroundMatrixComponent implements OnInit {
   @Input() matrixInfo: any;
-  @Output() matrixColumnEmitter = new EventEmitter<number>();
-  @Output() matrixClickEmitter = new EventEmitter<number>();
+  @Output() matrixHovered = new EventEmitter<number>();
+  @Output() columnClicked = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit() {
-    console.log('playground matrix', this.matrixInfo)
+    console.log('matrixInfo', this.matrixInfo);
   }
 
-  matrixMouseOver(e) {
-    this.matrixColumnEmitter.emit(e);
+  matrixHover(i) {
+    this.matrixHovered.emit(i);
   }
 
-  matrixColumnClick(e) {
-    this.matrixClickEmitter.emit(e);
+  matrixClicked(e) {
+    this.columnClicked.emit(e);
   }
 
 }

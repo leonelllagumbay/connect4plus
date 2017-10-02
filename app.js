@@ -16,4 +16,19 @@ const port = process.env.PORT || '3001';
 app.set('port', port);
 
 const server = http.createServer(app);
+
+
+// Socket IO
+var io = require('socket.io')(server);
+io.on('connection', function(socket) {
+	socket.emit('msg', {
+		msg: 'Welcome bro!'
+	});
+	socket.on('msg', function(msg) {
+		socket.emit('msg', {
+			msg: msg
+		});
+	})
+});
+
 server.listen(port, () => console.log('Running'));

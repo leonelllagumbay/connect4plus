@@ -1,5 +1,5 @@
 export class Matrix {
-    matrix: Array<[{}]>;
+    matrix: Array<{}>;
     constructor() {
         this.matrix = [
             [0, 0, 0, 0, 0, 0],

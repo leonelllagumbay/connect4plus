@@ -3,7 +3,6 @@ export class MatrixTop {
     constructor() {
         this.matrixTop = [
             [0, 0, 0, 0, 0, 0, 0]
-        ];
+        ]
     }
 }
-
