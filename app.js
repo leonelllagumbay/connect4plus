@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
 		msg: 'Welcome bro!'
 	});
 	socket.on('msg', (msg) => {
-		socket.emit('msg', {
+		socket.broadcast.emit('msg', { // sending to all clients except the sender
 			msg: msg
 		});
 	});
