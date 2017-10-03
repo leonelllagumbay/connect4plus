@@ -26,4 +26,8 @@ export class ChatServiceService {
                  return data['msg'];
                 } );
   }
+
+  close() {
+    this.socket.disconnect();
+  }
 }

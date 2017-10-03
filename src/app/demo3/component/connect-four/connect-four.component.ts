@@ -84,6 +84,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   }
 
   playgroundMatrixClicked(e) {
+    this._ws.sendMessage(JSON.stringify('drop like spaceship' + e));
     this.dropLikeASpaceShip(e);
     // for (let a = this.matrixData.length - 1; a >= 0; a--) {
     //   if (this.matrixData[e][a] === 0) {

@@ -21,14 +21,14 @@ server.listen(port, () => console.log('Running'));
 // Socket IO
 const io = require('socket.io')(server);
 io.on('connection', (socket) => {
-	socket.emit('msg', {
+	socket.broadcast.emit('msg', { // sending to all clients except the sender
 		msg: 'Welcome bro!'
 	});
 	socket.on('msg', (msg) => {
 		socket.emit('msg', {
 			msg: msg
 		});
-	})
+	});
 });
 
 
