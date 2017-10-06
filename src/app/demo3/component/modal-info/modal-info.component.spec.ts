@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamicInfoComponent } from './dynamic-info.component';
+import { ModalInfoComponent } from './modal-info.component';
 
-describe('DynamicInfoComponent', () => {
-  let component: DynamicInfoComponent;
-  let fixture: ComponentFixture<DynamicInfoComponent>;
+describe('ModalInfoComponent', () => {
+  let component: ModalInfoComponent;
+  let fixture: ComponentFixture<ModalInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DynamicInfoComponent ]
+      declarations: [ ModalInfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DynamicInfoComponent);
+    fixture = TestBed.createComponent(ModalInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

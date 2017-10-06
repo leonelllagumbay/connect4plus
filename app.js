@@ -1,9 +1,6 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
-
-//const api = require('./server/routes/api');
-
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -22,7 +19,7 @@ server.listen(port, () => console.log('Running'));
 const io = require('socket.io')(server);
 io.on('connection', (socket) => {
 	socket.broadcast.emit('msg', { // sending to all clients except the sender
-		msg: 'Welcome bro!'
+		msg: '{"command":"ready"}'
 	});
 	socket.on('msg', (msg) => {
 		socket.broadcast.emit('msg', { // sending to all clients except the sender
