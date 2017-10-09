@@ -31,6 +31,9 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   isMeBusy: boolean;
   isUdateFromOpponent = false;
   mouseDisabled = false;
+
+  private opponentIsUpdating: boolean;
+
   subscription: {
     unsubscribe();
   }
@@ -68,8 +71,9 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       this.processIncomingData(data);
     })
 
-    this._cs.setDestinationId(Math.random().toString());
+    this._cs.setMyId(Math.random().toString());
 
+    this.opponentIsUpdating = false;
   }
 
   subscriptionObservable(take, selectedColumn) {
@@ -96,46 +100,53 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   }
 
   playgroundMatrixHover(e) {
-
-    if (localStorage.getItem('turn') !== this._cs.getDestinationId()) {
-      return; // do nothing it's not your turn yet
+    if (this._cs.getGameId()) {
+      if (this._cs.getTurnId() === this._cs.getMyTurnId()) {
+        return; // do nothing it's not your turn yet
+      }
+      this.resetTop();
+      this.matrixTopData[0][e] = this.whosTurn;
+      // Cant hover when its not your move
+      const params = {
+        command: GameKonstant.get('hover_update'),
+        source_id:  this._cs.getMyId(),
+        name: this._cs.getMyName(),
+        game_id: this._cs.getGameId(),
+        turn_id: this._cs.getTurnId(),
+        selected_column: e
+      }
+      this._cs.sendMessage(JSON.stringify(params));
+    } else {
+      this.resetTop();
+      this.matrixTopData[0][e] = this.whosTurn;
     }
-
-    this.resetTop();
-    this.matrixTopData[0][e] = this.whosTurn;
-
-    // Cant hover when its not your move
-    const params = {
-      command: GameKonstant.get('hover_update'),
-      source_id:  this._cs.getDestinationId(),
-      destination_id: localStorage.getItem('opponent_id'),
-      name: localStorage.getItem('your_name'),
-      whos_turn: this.whosTurn,
-      selected_column: e
-    }
-    this._cs.sendMessage(JSON.stringify(params));
   }
 
   playgroundMatrixClicked(e) {
     // Can you click
-    if (this.mouseDisabled === true) {
-      return;
-    }
 
-    this.mouseDisabled = true;
-    if (localStorage.getItem('turn') !== this._cs.getDestinationId()) {
-      return; // do nothing it's not your turn yet
-    }
+    if (this._cs.getGameId()) {
+      if (this.mouseDisabled === true) {
+        return;
+      }
 
-    if (!this.hasWinner) {
-      this.dropLikeASpaceShip(e);
-      // for (let a = this.matrixData.length - 1; a >= 0; a--) {
-      //   if (this.matrixData[e][a] === 0) {
-      //     this.matrixData[e][a] = this.whosTurn;
-      //     break;
-      //   }
-      // }
-      // this.changeTurn();
+      this.mouseDisabled = true;
+      if (this._cs.getTurnId() === this._cs.getMyTurnId()) {
+        return; // do nothing it's not your turn yet
+      }
+
+      if (!this.hasWinner) {
+        this.dropLikeASpaceShip(e);
+      }
+    } else {
+      if (this.mouseDisabled === true) {
+        return;
+      }
+      this.mouseDisabled = true;
+
+      if (!this.hasWinner) {
+        this.dropLikeASpaceShip(e);
+      }
     }
   }
 
@@ -152,24 +163,25 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       this.whosTurn = PlayerEnum.Player1;
     }
 
-    if (!this.isUdateFromOpponent) {
-      if (localStorage.getItem('opponent_id')) {
+    if (this._cs.getGameId()) {
+      if (this.opponentIsUpdating) {
+        this.opponentIsUpdating = false;
+        // do not change the update its the opponent's move
+      } else {
+        this._cs.setMyTurnId(this._cs.getTurnId());
         const params = {
           command: GameKonstant.get('click_update'),
-          source_id:  this._cs.getDestinationId(),
-          destination_id: localStorage.getItem('opponent_id'),
-          name: localStorage.getItem('your_name'),
+          source_id:  this._cs.getMyId(),
+          name: this._cs.getMyName(),
+          game_id: this._cs.getGameId(),
+          turn_id: 'turn' + Math.random().toString(),
           whos_turn: this.whosTurn,
           selected_column: e
         }
         this._cs.sendMessage(JSON.stringify(params));
       }
-      localStorage.setItem('turn', localStorage.getItem('opponent_id'));
-      this.isUdateFromOpponent = false;
-    } else {
-      localStorage.setItem('turn', this._cs.getDestinationId());
-      this.isUdateFromOpponent = false;
     }
+
     this.mouseDisabled = false;
   }
 
@@ -191,8 +203,9 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
 
     const params = {
       command: GameKonstant.get('play_again'),
-      source_id:  this._cs.getDestinationId(),
-      destination_id: localStorage.getItem('opponent_id')
+      source_id:  this._cs.getMyId(),
+      game_id: this._cs.getGameId(),
+      name: this._cs.getMyName()
     }
     this._cs.sendMessage(JSON.stringify(params));
   }
@@ -202,12 +215,17 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
     console.log('winner', winner);
     if (winner === 0) {
       // do nothing
-    } else if (winner === 1) {
+    } else  {
       this.hasWinner = true;
-      this.toolbar.open('1');
-    } else if (winner === 2) {
-      this.hasWinner = true;
-      this.toolbar.open('2');
+      if (this._cs.getGameId()) {
+        if (this._cs.getMyTurnId() !== this._cs.getTurnId()) {
+          this.toolbar.open('You loose!');
+        } else {
+          this.toolbar.open('You win!');
+        }
+      } else {
+        this.toolbar.open('Player ' + winner + ' wins!');
+      }
     }
   }
 
@@ -219,7 +237,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       if (data_stream.command === GameKonstant.get('whos_online')) {
         this._cs.sayImOnline(data_stream);
       } else if (data_stream.command === GameKonstant.get('im_online')) {
-
+        this._cs.addOnlineFriend(data_stream);
       } else if (data_stream.command === GameKonstant.get('invite_friend')) {
         // TODO
       }  else if (data_stream.command === GameKonstant.get('accept_invite')) {
@@ -231,7 +249,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       } else if (data_stream.command === GameKonstant.get('play_again')) {
         this.replay(data_stream);
       } else if (data_stream.command === GameKonstant.get('quit')) {
-        // TODO
+        this.quitCleanUp(data_stream);
       } else {
         // Ignore anything
       }
@@ -239,16 +257,18 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   }
 
   updateHover(data_stream) {
-    if (this._cs.getDestinationId() === data_stream.destination_id) { // This is for me
+    if (this._cs.getGameId() === data_stream.game_id) { // This is for me
       this.resetTop();
       this.matrixTopData[0][data_stream.selected_column] = this.whosTurn;
     }
   }
 
   updateClick(data_stream) {
-    if (data_stream.destination_id === this._cs.getDestinationId()) { // Make sure its for the desired destination
-      this.isUdateFromOpponent = true;
-      localStorage.setItem('opponent_id', data_stream.source_id);
+    if (this._cs.getGameId() === data_stream.game_id) { // Make sure its for the desired destination
+        this.opponentIsUpdating = true;
+        this._cs.setTurnId(data_stream.turn_id);
+        this._cs.setMyTurnId('turn' + Math.random().toString());
+
       if (!this.hasWinner) {
         this.dropLikeASpaceShip(data_stream.selected_column);
       }
@@ -256,9 +276,20 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   }
 
   replay(data_stream) {
-    this.hasWinner = false;
-    const new_matrix = new Matrix();
-    this.matrixData = new_matrix.matrix;
+    if (this._cs.getGameId() === data_stream.game_id) {
+      this.hasWinner = false;
+      const new_matrix = new Matrix();
+      this.matrixData = new_matrix.matrix;
+    }
+  }
+
+  quitCleanUp(data_stream) {
+    if (this._cs.getGameId() === data_stream.game_id) {
+      this.hasWinner = false;
+      this._cs.setGameId('');
+      const new_matrix = new Matrix();
+      this.matrixData = new_matrix.matrix;
+    }
   }
 
 }

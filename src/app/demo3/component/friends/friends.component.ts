@@ -10,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./friends.component.scss']
 })
 export class FriendsComponent implements OnInit {
-  onlineFriends: Friend[]
+  onlineFriends: Friend[];
+  gameId: string;
   constructor(private _ar: ActivatedRoute, private _cs: ConnectFourService, private _router: Router) { }
 
   ngOnInit() {
@@ -25,18 +26,18 @@ export class FriendsComponent implements OnInit {
     // listen for incoming socket
     this._cs.getMessage().subscribe(data => {
       this.processIncomingData(data);
-    })
+    });
+
+    this.onlineFriends = this._cs.onlineFriends;
   }
 
   inviteFriend(friend: Friend) {
 
-    // The first to move
-    localStorage.setItem('turn', this._cs.getDestinationId());
     const params = {
       command: GameKonstant.get('invite_friend'),
-      source_id:  this._cs.getDestinationId(),
+      source_id:  this._cs.getMyId(),
       destination_id: friend.source_id,
-      name: localStorage.getItem('your_name')
+      name: this._cs.getMyName()
     }
     this._cs.sendMessage(JSON.stringify(params));
 
@@ -49,21 +50,26 @@ export class FriendsComponent implements OnInit {
   }
 
   acceptGame(friend: Friend) {
+    this._cs.setGameId('gameid' + Math.random().toString());
+    const turn_id = 'turnid' + Math.random().toString();
+    this._cs.setTurnId(turn_id);
+    this._cs.setMyTurnId(turn_id);
     const params = {
       command: GameKonstant.get('accept_invite'),
-      source_id:  this._cs.getDestinationId(),
+      source_id:  this._cs.getMyId(),
       destination_id: friend.source_id,
-      name: localStorage.getItem('your_name')
+      name: this._cs.getMyName(),
+      game_id: this._cs.getGameId(),
+      turn_id: this._cs.getTurnId(),
     }
     this._cs.sendMessage(JSON.stringify(params));
     this._router.navigate(['demo3']);
-    localStorage.setItem('turn', friend.source_id); // turn of the other player
   }
 
   getWhosOnline(value) {
     const params = {
       command: GameKonstant.get('whos_online'),
-      source_id:  this._cs.getDestinationId()
+      source_id:  this._cs.getMyId()
     }
     this._cs.sendMessage(JSON.stringify(params));
   }
@@ -108,9 +114,9 @@ export class FriendsComponent implements OnInit {
   }
 
   addOnlineToList(data_stream) {
-    console.log('add online users to list', this._cs.getDestinationId());
+    console.log('add online users to list', this._cs.getMyId());
     if (data_stream.source_id && this.doesNotExistSourceId(data_stream.source_id)) {
-      if (localStorage.getItem('your_name')) { // you know that your online if this is defined
+      if (this._cs.getMyName()) { // you know that your online if this is defined
         this.onlineFriends.push(new Friend('Invite', 'btn-warning', data_stream.name, data_stream.source_id));
       }
     } else { // Update the name
@@ -136,7 +142,7 @@ export class FriendsComponent implements OnInit {
 
   addOnlineToListAsPending(data_stream) {
     console.log('this invite is for me 0');
-    if (data_stream.destination_id === this._cs.getDestinationId()) {
+    if (data_stream.destination_id === this._cs.getMyId()) {
       if (localStorage.getItem('your_name') && this.doesNotExistSourceId(data_stream.source_id)) {
         this.onlineFriends.push(new Friend('Accept', 'btn-primary', data_stream.name, data_stream.source_id));
       } else { // Update the name
@@ -155,9 +161,10 @@ export class FriendsComponent implements OnInit {
   }
 
   startGame(data_stream) {
-    if (data_stream.destination_id === this._cs.getDestinationId()) {
-      localStorage.setItem('opponent_id', data_stream.source_id);
-      localStorage.removeItem('isMyTurn');
+    this._cs.setGameId(data_stream.game_id);
+    this._cs.setTurnId(data_stream.turn_id);
+    this._cs.setMyTurnId('turn' + Math.random().toString());
+    if (data_stream.destination_id === this._cs.getMyId()) {
       this._router.navigate(['demo3']);
     }
   }

@@ -6,7 +6,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   // templateUrl: './modal-info.component.html',
   template: `
     <div class="modal-body mx-auto" style="width: 300px;">
-      <h1>Player {{name}} Wins</h1>
+      <h1>{{name}}</h1>
     </div>
   `,
   styleUrls: ['./modal-info.component.scss']

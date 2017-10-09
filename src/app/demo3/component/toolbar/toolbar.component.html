@@ -3,7 +3,7 @@
   
 
 <form novalidate [formGroup]="form" >
-  <button type="button" class="btn btn-danger mr-1" (click)="playConnectFour()">Play again</button>
+  <button type="button" class="btn btn-danger mr-1" (click)="playConnectFour()">Play</button>
   <button type="button" class="btn btn-primary mr-3" [hidden]="!form.controls.online.value" [routerLink]="['/friends']">Friends</button>
   
   <div class="input-group mt-1">

@@ -31,15 +31,20 @@ export class ToolbarComponent implements OnInit {
       .subscribe(value => {
         if (value !== '') {
           this.form.controls.online.setValue(true);
-          localStorage.setItem('your_name', value);
+          this._cs.setMyName(value);
           this.tellMyFriendsImOnline(value);
         } else {
+          this._cs.setMyName('');
           this.form.controls.online.setValue(false);
           this.tellMyFriendsIQuit();
+
+          // send someone that you quit
+          this._cs.iQuit();
         }
     });
-    if (localStorage.getItem('your_name')) {
-      this.form.controls.your_name.setValue(localStorage.getItem('your_name'));
+
+    if (this._cs.getMyName()) {
+      userForm.setValue(this._cs.getMyName());
     }
   }
 
@@ -61,7 +66,7 @@ export class ToolbarComponent implements OnInit {
   tellMyFriendsImOnline(value) {
     const request = {
       command: GameKonstant.get('im_online'),
-      source_id: this._cs.getDestinationId(),
+      source_id: this._cs.getMyId(),
       name: value
     }
     this._cs.sendMessage(JSON.stringify(request));
@@ -70,7 +75,8 @@ export class ToolbarComponent implements OnInit {
   tellMyFriendsIQuit() {
     const request = {
       command: GameKonstant.get('quit'),
-      source_id: this._cs.getDestinationId()
+      source_id: this._cs.getMyId(),
+      game_id: this._cs.getGameId()
     }
     this._cs.sendMessage(JSON.stringify(request));
   }

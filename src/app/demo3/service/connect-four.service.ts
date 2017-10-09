@@ -1,21 +1,62 @@
+import { GameKonstant } from './../constant/game-constant';
+import { Friend } from './../class/friend';
 import { ISocket } from './../interface/isocket';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 
 @Injectable()
-export class ConnectFourService implements ISocket {
-  public destination_id: string;
+export class ConnectFourService implements ISocket, OnInit {
+  private my_id: string;
+  private gameId: string;
+  private turnId: string;
+  private myTurnId: string;
+  private playerName: string;
+  onlineFriends: Friend[] = [];
+
   constructor(private _socket: Socket) { }
 
-  getDestinationId(): string {
-    return localStorage.getItem('player_id');
+  ngOnInit() {
+    this.gameId = '';
   }
 
-  setDestinationId(value): void {
-    if (!localStorage.getItem('player_id')) {
-        this.destination_id = value;
-        localStorage.setItem('player_id', value);
-    }
+  setGameId(val): void {
+    this.gameId = val;
+  }
+
+  getGameId(): string {
+    return this.gameId;
+  }
+
+  setTurnId(val): void {
+    this.turnId = val;
+  }
+
+  getTurnId(): string {
+    return this.turnId;
+  }
+
+  setMyTurnId(val): void {
+    this.myTurnId = val;
+  }
+
+  getMyTurnId(): string {
+    return this.myTurnId;
+  }
+
+  getMyId(): string {
+    return this.my_id;
+  }
+
+  setMyId(value): void {
+    this.my_id = value;
+  }
+
+  setMyName(val) {
+    this.playerName = val;
+  }
+
+  getMyName(): string {
+    return this.playerName;
   }
 
   sendMessage(msg: string): void {
@@ -42,15 +83,53 @@ export class ConnectFourService implements ISocket {
 
   sayImOnline(data_stream) {
     console.log('say im online');
-    if (localStorage.getItem('your_name') && data_stream.source_id) {
+    if (this.getMyName() && data_stream.source_id) {
       const params = {
         command: 'im_online',
-        name: localStorage.getItem('your_name'),
-        source_id: this.getDestinationId(),
-        destination_id: data_stream.source_id
+        source_id: this.getMyId(),
+        destination_id: data_stream.source_id,
+        name: this.getMyName()
       }
       this.sendMessage(JSON.stringify(params));
     }
+  }
+
+  addOnlineFriend(data_stream) {
+    console.log('your online girl');
+    if (data_stream.source_id && this.doesNotExistSourceId(data_stream.source_id)) {
+      if (this.getMyId()) { // you know that your online if this is defined
+        this.onlineFriends.push(new Friend('Invite', 'btn-warning', data_stream.name, data_stream.source_id));
+      }
+    } else { // Update the name
+      this.onlineFriends.map(friend => {
+        if (friend.source_id === data_stream.source_id) {
+          friend.name = data_stream.name;
+          return friend;
+        } else {
+          return friend;
+        }
+      })
+    }
+  }
+
+  doesNotExistSourceId(source_id) {
+    for (const friend of this.onlineFriends) {
+      if (friend.source_id === source_id) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  iQuit() {
+    this.setGameId('');
+    const params = {
+      command: GameKonstant.get('quit'),
+      source_id:  this.getMyId(),
+      game_id: this.getGameId(),
+      name: this.getMyName()
+    }
+    this.sendMessage(JSON.stringify(params));
   }
 
 
