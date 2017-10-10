@@ -25,10 +25,6 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   whosTurn: number;
   hasWinner: boolean;
   observableData: number;
-  gameStatus: string;
-  isMyTurn: boolean;
-  isMeOnline: boolean;
-  isMeBusy: boolean;
   isUdateFromOpponent = false;
   mouseDisabled = false;
 
@@ -65,7 +61,6 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
     // this.subscriptionObservable();
 
     // listen for incoming socket
-    this.gameStatus = 'offline';
 
     this._cs.getMessage().subscribe(data => {
       this.processIncomingData(data);

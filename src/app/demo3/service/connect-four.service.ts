@@ -7,6 +7,7 @@ import { Socket } from 'ng-socket-io';
 @Injectable()
 export class ConnectFourService implements ISocket, OnInit {
   private my_id: string;
+  private myOpponentId: string;
   private gameId: string;
   private turnId: string;
   private myTurnId: string;
@@ -17,6 +18,14 @@ export class ConnectFourService implements ISocket, OnInit {
 
   ngOnInit() {
     this.gameId = '';
+  }
+
+  setMyOpponentId(val) {
+    this.myOpponentId = val;
+  }
+
+  getMyOpponentId() {
+    return this.myOpponentId;
   }
 
   setGameId(val): void {

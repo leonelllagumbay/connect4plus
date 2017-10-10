@@ -41,6 +41,8 @@ export class FriendsComponent implements OnInit {
     }
     this._cs.sendMessage(JSON.stringify(params));
 
+    this._cs.setMyOpponentId(friend.source_id);
+
     this.onlineFriends.map(f => {
       if (f.source_id === friend.source_id) {
         f.requestClass = 'btn-success';
@@ -164,7 +166,7 @@ export class FriendsComponent implements OnInit {
     this._cs.setGameId(data_stream.game_id);
     this._cs.setTurnId(data_stream.turn_id);
     this._cs.setMyTurnId('turn' + Math.random().toString());
-    if (data_stream.destination_id === this._cs.getMyId()) {
+    if (data_stream.destination_id === this._cs.getMyId() && data_stream.source_id === this._cs.getMyOpponentId()) {
       this._router.navigate(['demo3']);
     }
   }
