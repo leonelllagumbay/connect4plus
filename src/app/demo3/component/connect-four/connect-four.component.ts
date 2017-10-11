@@ -79,7 +79,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
 
   getObservable(take, selectedColumn) {
     return Observable
-      .interval(150)
+      .interval(90)
       .take(take)
       .map(v => {
         if (v !== 0 ) {
@@ -214,7 +214,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       this.hasWinner = true;
       if (this._cs.getGameId()) {
         if (this._cs.getMyTurnId() !== this._cs.getTurnId()) {
-          this.toolbar.open('You loose!');
+          this.toolbar.open('You lose!');
         } else {
           this.toolbar.open('You win!');
         }

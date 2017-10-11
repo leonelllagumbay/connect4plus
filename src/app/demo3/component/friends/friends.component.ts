@@ -163,10 +163,10 @@ export class FriendsComponent implements OnInit {
   }
 
   startGame(data_stream) {
-    this._cs.setGameId(data_stream.game_id);
-    this._cs.setTurnId(data_stream.turn_id);
-    this._cs.setMyTurnId('turn' + Math.random().toString());
     if (data_stream.destination_id === this._cs.getMyId() && data_stream.source_id === this._cs.getMyOpponentId()) {
+      this._cs.setGameId(data_stream.game_id);
+      this._cs.setTurnId(data_stream.turn_id);
+      this._cs.setMyTurnId('turn' + Math.random().toString());
       this._router.navigate(['demo3']);
     }
   }
