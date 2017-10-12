@@ -1,7 +1,6 @@
 import { CanDeactivateFriends } from './class/can-deactivate-friends';
 import { ConnectFourService } from './service/connect-four.service';
 import { AppComponent } from './../app.component';
-import { ChatServiceService } from './service/chat-service.service';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ToolbarComponent } from './component/toolbar/toolbar.component';
 import { DiscCellComponent } from './component/disc-cell/disc-cell.component';
@@ -58,6 +57,6 @@ url: 'https://calm-meadow-29333.herokuapp.com', options: {}
     HttpClientModule
   ],
   exports: [], // Exports may be necessary if the component is not fount in other module
-  providers: [ChatServiceService, ConnectFourService, CanDeactivateFriends, HttpClient]
+  providers: [ConnectFourService, CanDeactivateFriends, HttpClient]
 })
 export class Demo3Module { }
