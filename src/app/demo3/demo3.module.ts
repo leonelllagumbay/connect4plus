@@ -17,6 +17,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { FriendsComponent } from './component/friends/friends.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 const routes: Routes = [{
   path: '',
@@ -52,9 +54,10 @@ url: 'https://calm-meadow-29333.herokuapp.com', options: {}
     BrowserModule,
     NgbModule.forRoot(),
     SocketIoModule.forRoot(config),
-    RouterModule.forRoot(routes, {useHash: false})
+    RouterModule.forRoot(routes, {useHash: false}),
+    HttpClientModule
   ],
   exports: [], // Exports may be necessary if the component is not fount in other module
-  providers: [ChatServiceService, ConnectFourService, CanDeactivateFriends]
+  providers: [ChatServiceService, ConnectFourService, CanDeactivateFriends, HttpClient]
 })
 export class Demo3Module { }

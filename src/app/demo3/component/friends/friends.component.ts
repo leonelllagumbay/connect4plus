@@ -1,8 +1,12 @@
+import { SocketMessageModel, SocketWhosOnline, InviteFriend, AcceptInvite } from './../../class/socket-message-model';
+import { MessageFormatter } from './../../class/message-formatter';
 import { GameKonstant } from './../../constant/game-constant';
 import { ConnectFourService } from './../../service/connect-four.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Friend } from './../../class/friend';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { ItemsResponse } from './../../interface/items-response';
 
 @Component({
   selector: 'app-friends',
@@ -12,16 +16,26 @@ import { Component, OnInit } from '@angular/core';
 export class FriendsComponent implements OnInit {
   onlineFriends: Friend[];
   gameId: string;
-  constructor(private _ar: ActivatedRoute, private _cs: ConnectFourService, private _router: Router) { }
+  results: any;
+  isLoading: boolean;
+  constructor(private _ar: ActivatedRoute,
+              private _cs: ConnectFourService,
+              private _router: Router,
+              private _http: HttpClient
+            ) { }
 
   ngOnInit() {
     this.onlineFriends = [];
 
-    this._ar.params.subscribe(value => {
-      console.log('route params', value);
-      // Invite friends here
-      this.getWhosOnline(value);
-    });
+    this._ar.params.subscribe(
+      value => {
+          console.log('route params', value);
+          // Invite friends here
+          this.getWhosOnline(value);
+        },
+      err => {
+        console.error('Something went wrong!');
+      });
 
     // listen for incoming socket
     this._cs.getMessage().subscribe(data => {
@@ -29,6 +43,7 @@ export class FriendsComponent implements OnInit {
     });
 
     this.onlineFriends = this._cs.onlineFriends;
+    this.isLoading = true;
   }
 
   inviteFriend(friend: Friend) {
@@ -39,7 +54,9 @@ export class FriendsComponent implements OnInit {
       destination_id: friend.source_id,
       name: this._cs.getMyName()
     }
-    this._cs.sendMessage(JSON.stringify(params));
+    const socketFormatter = new MessageFormatter<InviteFriend>();
+    const formattedStr = socketFormatter.formatSocketMessage(params);
+    this._cs.sendMessage(formattedStr);
 
     this._cs.setMyOpponentId(friend.source_id);
 
@@ -64,16 +81,46 @@ export class FriendsComponent implements OnInit {
       game_id: this._cs.getGameId(),
       turn_id: this._cs.getTurnId(),
     }
-    this._cs.sendMessage(JSON.stringify(params));
+    const socketFormatter = new MessageFormatter<AcceptInvite>();
+    const formattedStr = socketFormatter.formatSocketMessage(params);
+    this._cs.sendMessage(formattedStr);
     this._router.navigate(['demo3']);
   }
 
   getWhosOnline(value) {
+
+    // This is just to show the HttpClientModule
+    const url = './';
+    const body = {
+      name: 'Brad'
+    }
+    const search = new HttpParams();
+    search.set('foo', 'moo');
+    search.set('limit', '25');
+    this._http.post<ItemsResponse>(url, body, {
+      headers: new HttpHeaders().set('Authorization', 'my-auth-token'),
+      params: new HttpParams().set('id', '3'),
+    }).subscribe(
+      data => {
+        this.results = data.results;
+        console.log('post result', this.results);
+        this.sendWhosOnline();
+      },
+      err => {
+        console.error('Something went wrong with http');
+        this.sendWhosOnline();
+    });
+  }
+
+  sendWhosOnline() {
     const params = {
       command: GameKonstant.get('whos_online'),
       source_id:  this._cs.getMyId()
     }
-    this._cs.sendMessage(JSON.stringify(params));
+    const socketFormatter = new MessageFormatter<SocketWhosOnline>();
+    const formattedStr = socketFormatter.formatSocketMessage(params);
+    this._cs.sendMessage(formattedStr);
+    this.isLoading = false;
   }
 
   processIncomingData(data) {

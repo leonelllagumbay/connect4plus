@@ -1,3 +1,5 @@
+import { ImOnline } from './../class/socket-message-model';
+import { MessageFormatter } from './../class/message-formatter';
 import { GameKonstant } from './../constant/game-constant';
 import { Friend } from './../class/friend';
 import { ISocket } from './../interface/isocket';
@@ -99,7 +101,9 @@ export class ConnectFourService implements ISocket, OnInit {
         destination_id: data_stream.source_id,
         name: this.getMyName()
       }
-      this.sendMessage(JSON.stringify(params));
+      const socketFormatter = new MessageFormatter<ImOnline>();
+      const formattedStr = socketFormatter.formatSocketMessage(params);
+      this.sendMessage(formattedStr);
     }
   }
 

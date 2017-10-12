@@ -1,3 +1,5 @@
+import { ImHovering, IMakeMyMove, PlayAgain } from './../../class/socket-message-model';
+import { MessageFormatter } from './../../class/message-formatter';
 import { GameKonstant } from './../../constant/game-constant';
 import { FriendsComponent } from './../friends/friends.component';
 import { Friend } from './../../class/friend';
@@ -110,7 +112,9 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
         turn_id: this._cs.getTurnId(),
         selected_column: e
       }
-      this._cs.sendMessage(JSON.stringify(params));
+      const socketFormatter = new MessageFormatter<ImHovering>();
+      const formattedStr = socketFormatter.formatSocketMessage(params);
+      this._cs.sendMessage(formattedStr);
     } else {
       this.resetTop();
       this.matrixTopData[0][e] = this.whosTurn;
@@ -173,7 +177,9 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
           whos_turn: this.whosTurn,
           selected_column: e
         }
-        this._cs.sendMessage(JSON.stringify(params));
+        const socketFormatter = new MessageFormatter<IMakeMyMove>();
+        const formattedStr = socketFormatter.formatSocketMessage(params);
+        this._cs.sendMessage(formattedStr);
       }
     }
 
@@ -202,7 +208,9 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       game_id: this._cs.getGameId(),
       name: this._cs.getMyName()
     }
-    this._cs.sendMessage(JSON.stringify(params));
+    const socketFormatter = new MessageFormatter<PlayAgain>();
+    const formattedStr = socketFormatter.formatSocketMessage(params);
+    this._cs.sendMessage(formattedStr);
   }
 
   tellTheWinner() {
