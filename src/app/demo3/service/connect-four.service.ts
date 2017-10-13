@@ -1,10 +1,12 @@
-import { ImOnline } from './../class/socket-message-model';
+import { Observable } from 'rxjs/Observable';
+import { ItemsResponse } from './../interface/items-response';
+import { ImOnline, SocketWhosOnline } from './../class/socket-message-model';
 import { MessageFormatter } from './../class/message-formatter';
 import { GameKonstant } from './../constant/game-constant';
-import { Friend } from './../class/friend';
 import { ISocket } from './../interface/isocket';
 import { Injectable, OnInit } from '@angular/core';
 import { Socket } from 'ng-socket-io';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ConnectFourService implements ISocket, OnInit {
@@ -14,9 +16,8 @@ export class ConnectFourService implements ISocket, OnInit {
   private turnId: string;
   private myTurnId: string;
   private playerName: string;
-  onlineFriends: Friend[] = [];
 
-  constructor(private _socket: Socket) { }
+  constructor(private _socket: Socket, private _http: HttpClient) { }
 
   ngOnInit() {
     this.gameId = '';
@@ -90,10 +91,8 @@ export class ConnectFourService implements ISocket, OnInit {
     this._socket.disconnect();
   }
 
-
-
-  sayImOnline(data_stream) {
-    console.log('say im online');
+  sayImOnline(data_stream: SocketWhosOnline): void {
+    console.log('say im online', data_stream);
     if (this.getMyName() && data_stream.source_id) {
       const params = {
         command: 'im_online',
@@ -107,33 +106,6 @@ export class ConnectFourService implements ISocket, OnInit {
     }
   }
 
-  addOnlineFriend(data_stream) {
-    console.log('your online girl');
-    if (data_stream.source_id && this.doesNotExistSourceId(data_stream.source_id)) {
-      if (this.getMyId()) { // you know that your online if this is defined
-        this.onlineFriends.push(new Friend('Invite', 'btn-warning', data_stream.name, data_stream.source_id));
-      }
-    } else { // Update the name
-      this.onlineFriends.map(friend => {
-        if (friend.source_id === data_stream.source_id) {
-          friend.name = data_stream.name;
-          return friend;
-        } else {
-          return friend;
-        }
-      })
-    }
-  }
-
-  doesNotExistSourceId(source_id) {
-    for (const friend of this.onlineFriends) {
-      if (friend.source_id === source_id) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   iQuit() {
     this.setGameId('');
     const params = {
@@ -143,6 +115,21 @@ export class ConnectFourService implements ISocket, OnInit {
       name: this.getMyName()
     }
     this.sendMessage(JSON.stringify(params));
+  }
+
+  testHttp(): Observable<ItemsResponse> {
+    // This is just to show the HttpClientModule
+    const url = './';
+    const body = {
+      name: 'Brad'
+    }
+    const search = new HttpParams();
+    search.set('foo', 'moo');
+    search.set('limit', '25');
+    return this._http.post<ItemsResponse>(url, body, {
+      headers: new HttpHeaders().set('Authorization', 'my-auth-token'),
+      params: new HttpParams().set('id', '3'),
+    });
   }
 
 

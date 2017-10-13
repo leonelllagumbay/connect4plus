@@ -1,12 +1,10 @@
-import { SocketMessageModel, SocketWhosOnline, InviteFriend, AcceptInvite } from './../../class/socket-message-model';
+import { SocketMessageModel, SocketWhosOnline, InviteFriend, AcceptInvite, ImOnline, IQuit } from './../../class/socket-message-model';
 import { MessageFormatter } from './../../class/message-formatter';
 import { GameKonstant } from './../../constant/game-constant';
 import { ConnectFourService } from './../../service/connect-four.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Friend } from './../../class/friend';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { ItemsResponse } from './../../interface/items-response';
 
 @Component({
   selector: 'app-friends',
@@ -20,8 +18,7 @@ export class FriendsComponent implements OnInit {
   isLoading: boolean;
   constructor(private _ar: ActivatedRoute,
               private _cs: ConnectFourService,
-              private _router: Router,
-              private _http: HttpClient
+              private _router: Router
             ) { }
 
   ngOnInit() {
@@ -31,7 +28,7 @@ export class FriendsComponent implements OnInit {
       value => {
           console.log('route params', value);
           // Invite friends here
-          this.getWhosOnline(value);
+          this.getWhosOnline();
         },
       err => {
         console.error('Something went wrong!');
@@ -42,7 +39,7 @@ export class FriendsComponent implements OnInit {
       this.processIncomingData(data);
     });
 
-    this.onlineFriends = this._cs.onlineFriends;
+    this.onlineFriends = [];
     this.isLoading = true;
   }
 
@@ -87,27 +84,16 @@ export class FriendsComponent implements OnInit {
     this._router.navigate(['demo3']);
   }
 
-  getWhosOnline(value) {
+  getWhosOnline() {
 
-    // This is just to show the HttpClientModule
-    const url = './';
-    const body = {
-      name: 'Brad'
-    }
-    const search = new HttpParams();
-    search.set('foo', 'moo');
-    search.set('limit', '25');
-    this._http.post<ItemsResponse>(url, body, {
-      headers: new HttpHeaders().set('Authorization', 'my-auth-token'),
-      params: new HttpParams().set('id', '3'),
-    }).subscribe(
+    this._cs.testHttp().subscribe(
       data => {
         this.results = data.results;
         console.log('post result', this.results);
         this.sendWhosOnline();
       },
       err => {
-        console.error('Something went wrong with http');
+        console.error('Something went wrong with your request'); // Continue anyway
         this.sendWhosOnline();
     });
   }
@@ -134,12 +120,6 @@ export class FriendsComponent implements OnInit {
         this.addOnlineToListAsPending(data_stream);
       }  else if (data_stream.command === GameKonstant.get('accept_invite')) {
         this.startGame(data_stream);
-      } else if (data_stream.command === GameKonstant.get('hover_update')) {
-        // TODO
-      } else if (data_stream.command === GameKonstant.get('click_update')) {
-        // TODO
-      } else if (data_stream.command === GameKonstant.get('play_again')) {
-        // TODO
       } else if (data_stream.command === GameKonstant.get('quit')) {
         this.removeFromList(data_stream);
       } else {
@@ -148,9 +128,18 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  removeFromList(data_stream) {
+  doesNotExistName(source_id) {
+    for (const friend of this.onlineFriends) {
+      if (friend.source_id === source_id) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  removeFromList(data_stream: IQuit) {
     console.log('remove user from list');
-    if (!this.doesNotExistSourceId(data_stream.source_id)) {
+    if (!this.doesNotExistName(data_stream.source_id)) {
       const temp_friends = [];
       for (const friend of this.onlineFriends) {
         if (friend.source_id !== data_stream.source_id) {
@@ -162,9 +151,9 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  addOnlineToList(data_stream) {
+  addOnlineToList(data_stream: ImOnline): void {
     console.log('add online users to list', this._cs.getMyId());
-    if (data_stream.source_id && this.doesNotExistSourceId(data_stream.source_id)) {
+    if (data_stream.source_id && this.doesNotExistName(data_stream.source_id)) {
       if (this._cs.getMyName()) { // you know that your online if this is defined
         this.onlineFriends.push(new Friend('Invite', 'btn-warning', data_stream.name, data_stream.source_id));
       }
@@ -180,19 +169,10 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  doesNotExistSourceId(source_id) {
-    for (const friend of this.onlineFriends) {
-      if (friend.source_id === source_id) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  addOnlineToListAsPending(data_stream) {
-    console.log('this invite is for me 0');
+  addOnlineToListAsPending(data_stream: InviteFriend) {
+    console.log('this invite is for me ', data_stream);
     if (data_stream.destination_id === this._cs.getMyId()) {
-      if (localStorage.getItem('your_name') && this.doesNotExistSourceId(data_stream.source_id)) {
+      if (localStorage.getItem('your_name') && this.doesNotExistName(data_stream.source_id)) {
         this.onlineFriends.push(new Friend('Accept', 'btn-primary', data_stream.name, data_stream.source_id));
       } else { // Update the name
         this.onlineFriends.map(friend => {
@@ -209,7 +189,7 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  startGame(data_stream) {
+  startGame(data_stream: AcceptInvite) {
     if (data_stream.destination_id === this._cs.getMyId() && data_stream.source_id === this._cs.getMyOpponentId()) {
       this._cs.setGameId(data_stream.game_id);
       this._cs.setTurnId(data_stream.turn_id);

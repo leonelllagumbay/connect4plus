@@ -1,3 +1,5 @@
+import { ImOnline, IQuit } from './../../class/socket-message-model';
+import { MessageFormatter } from './../../class/message-formatter';
 import { GameKonstant } from './../../constant/game-constant';
 import { ConnectFourService } from './../../service/connect-four.service';
 import { ModalInfoComponent } from './../modal-info/modal-info.component';
@@ -60,24 +62,27 @@ export class ToolbarComponent implements OnInit {
 
   playConnectFour() {
     this.playAgainClicked.emit(0);
-    // this.open();
   }
 
   tellMyFriendsImOnline(value) {
-    const request = {
+    const params = {
       command: GameKonstant.get('im_online'),
       source_id: this._cs.getMyId(),
       name: value
     }
-    this._cs.sendMessage(JSON.stringify(request));
+    const socketFormatter = new MessageFormatter<ImOnline>();
+    const formattedStr = socketFormatter.formatSocketMessage(params);
+    this._cs.sendMessage(formattedStr);
   }
 
   tellMyFriendsIQuit() {
-    const request = {
+    const params = {
       command: GameKonstant.get('quit'),
       source_id: this._cs.getMyId(),
       game_id: this._cs.getGameId()
     }
-    this._cs.sendMessage(JSON.stringify(request));
+    const socketFormatter = new MessageFormatter<IQuit>();
+    const formattedStr = socketFormatter.formatSocketMessage(params);
+    this._cs.sendMessage(formattedStr);
   }
 }

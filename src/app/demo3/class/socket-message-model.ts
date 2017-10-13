@@ -15,8 +15,8 @@ export class SocketWhosOnline {
 export class ImOnline {
     command: string;
     source_id: string;
-    destination_id: string;
     name: string;
+    destination_id?: string;
 }
 
 export class InviteFriend {
@@ -63,6 +63,9 @@ export class PlayAgain {
 
 export class IQuit {
     command: string;
+    source_id: string;
+    game_id: string;
+    name?: string;
 }
 
 

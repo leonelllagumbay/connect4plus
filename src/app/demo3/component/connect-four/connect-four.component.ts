@@ -1,4 +1,4 @@
-import { ImHovering, IMakeMyMove, PlayAgain } from './../../class/socket-message-model';
+import { ImHovering, IMakeMyMove, PlayAgain, IQuit } from './../../class/socket-message-model';
 import { MessageFormatter } from './../../class/message-formatter';
 import { GameKonstant } from './../../constant/game-constant';
 import { FriendsComponent } from './../friends/friends.component';
@@ -24,22 +24,29 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   matrixData: any;
   matrixTop: MatrixTop;
   matrixTopData: any;
-  whosTurn: number;
   hasWinner: boolean;
+  playerTurn: number;
   observableData: number;
   isUdateFromOpponent = false;
   mouseDisabled = false;
 
+  @ViewChild(ToolbarComponent) toolbar: ToolbarComponent;
   private opponentIsUpdating: boolean;
 
   subscription: {
     unsubscribe();
   }
-  @ViewChild(ToolbarComponent) toolbar: ToolbarComponent;
-  @ViewChild(FriendsComponent) friend_comp: FriendsComponent;
 
-  constructor(private _cs: ConnectFourService) {
+  get whosTurn(): number {
+    return this.playerTurn;
   }
+
+  set whosTurn(val: number) {
+    this.playerTurn = val;
+  }
+
+  constructor(private _cs: ConnectFourService) {}
+
 
   ngOnDestroy() {
     if (this.subscription) {
@@ -201,16 +208,17 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
     this.hasWinner = false;
     const new_matrix = new Matrix();
     this.matrixData = new_matrix.matrix; // reset all data matrix to zero
-
-    const params = {
-      command: GameKonstant.get('play_again'),
-      source_id:  this._cs.getMyId(),
-      game_id: this._cs.getGameId(),
-      name: this._cs.getMyName()
+    if (this._cs.getGameId()) {
+      const params = {
+        command: GameKonstant.get('play_again'),
+        source_id:  this._cs.getMyId(),
+        game_id: this._cs.getGameId(),
+        name: this._cs.getMyName()
+      }
+      const socketFormatter = new MessageFormatter<PlayAgain>();
+      const formattedStr = socketFormatter.formatSocketMessage(params);
+      this._cs.sendMessage(formattedStr);
     }
-    const socketFormatter = new MessageFormatter<PlayAgain>();
-    const formattedStr = socketFormatter.formatSocketMessage(params);
-    this._cs.sendMessage(formattedStr);
   }
 
   tellTheWinner() {
@@ -239,12 +247,6 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       console.log('data stream', data_stream);
       if (data_stream.command === GameKonstant.get('whos_online')) {
         this._cs.sayImOnline(data_stream);
-      } else if (data_stream.command === GameKonstant.get('im_online')) {
-        this._cs.addOnlineFriend(data_stream);
-      } else if (data_stream.command === GameKonstant.get('invite_friend')) {
-        // TODO
-      }  else if (data_stream.command === GameKonstant.get('accept_invite')) {
-        // TODO
       } else if (data_stream.command === GameKonstant.get('hover_update')) {
         this.updateHover(data_stream);
       } else if (data_stream.command === GameKonstant.get('click_update')) {
@@ -254,19 +256,19 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       } else if (data_stream.command === GameKonstant.get('quit')) {
         this.quitCleanUp(data_stream);
       } else {
-        // Ignore anything
+        // Ignore
       }
     }
   }
 
-  updateHover(data_stream) {
+  updateHover(data_stream: ImHovering): void {
     if (this._cs.getGameId() === data_stream.game_id) { // This is for me
       this.resetTop();
       this.matrixTopData[0][data_stream.selected_column] = this.whosTurn;
     }
   }
 
-  updateClick(data_stream) {
+  updateClick(data_stream: IMakeMyMove): void {
     if (this._cs.getGameId() === data_stream.game_id) { // Make sure its for the desired destination
         this.opponentIsUpdating = true;
         this._cs.setTurnId(data_stream.turn_id);
@@ -278,7 +280,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
     }
   }
 
-  replay(data_stream) {
+  replay(data_stream: PlayAgain) {
     if (this._cs.getGameId() === data_stream.game_id) {
       this.hasWinner = false;
       const new_matrix = new Matrix();
@@ -286,7 +288,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
     }
   }
 
-  quitCleanUp(data_stream) {
+  quitCleanUp(data_stream: IQuit) {
     if (this._cs.getGameId() === data_stream.game_id) {
       this.hasWinner = false;
       this._cs.setGameId('');
