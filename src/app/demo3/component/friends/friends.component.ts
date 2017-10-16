@@ -172,7 +172,7 @@ export class FriendsComponent implements OnInit {
   addOnlineToListAsPending(data_stream: InviteFriend) {
     console.log('this invite is for me ', data_stream);
     if (data_stream.destination_id === this._cs.getMyId()) {
-      if (localStorage.getItem('your_name') && this.doesNotExistName(data_stream.source_id)) {
+      if (this._cs.getMyName && this.doesNotExistName(data_stream.source_id)) {
         this.onlineFriends.push(new Friend('Accept', 'btn-primary', data_stream.name, data_stream.source_id));
       } else { // Update the name
         this.onlineFriends.map(friend => {

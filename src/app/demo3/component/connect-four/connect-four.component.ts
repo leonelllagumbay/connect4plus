@@ -92,7 +92,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
       .take(take)
       .map(v => {
         if (v !== 0 ) {
-          this.matrixData[selectedColumn][v - 1] = 0;
+          this.matrixData[selectedColumn][v - 1] = PlayerEnum.Default;
         }
         this.matrixData[selectedColumn][v] = this.whosTurn;
         if (v === take - 1) {
@@ -158,7 +158,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
 
   resetTop() {
     for (let a = 0; a < this.matrixTopData[0].length; a++) {
-      this.matrixTopData[0][a] = 0;
+      this.matrixTopData[0][a] = PlayerEnum.Default;
     }
   }
 
@@ -181,7 +181,6 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
           name: this._cs.getMyName(),
           game_id: this._cs.getGameId(),
           turn_id: 'turn' + Math.random().toString(),
-          whos_turn: this.whosTurn,
           selected_column: e
         }
         const socketFormatter = new MessageFormatter<IMakeMyMove>();

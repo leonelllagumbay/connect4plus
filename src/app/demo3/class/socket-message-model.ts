@@ -50,7 +50,6 @@ export class IMakeMyMove {
     name: string;
     game_id: string;
     turn_id: string;
-    whos_turn: number;
     selected_column: number;
 }
 
