@@ -40,7 +40,7 @@ export class ToolbarComponent implements OnInit {
           this.form.controls.online.setValue(false);
           this.tellMyFriendsIQuit();
 
-          // send someone that you quit
+          // inform someone that you quit
           this._cs.iQuit();
         }
     });

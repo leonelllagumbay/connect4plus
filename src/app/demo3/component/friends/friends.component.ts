@@ -85,7 +85,6 @@ export class FriendsComponent implements OnInit {
   }
 
   getWhosOnline() {
-
     this._cs.testHttp().subscribe(
       data => {
         this.results = data.results;

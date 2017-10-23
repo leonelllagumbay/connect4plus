@@ -1,6 +1,8 @@
 import { DynamicComponent } from './../dynamic/dynamic.component';
 import { Component, OnInit, ComponentFactoryResolver, AfterViewInit, ViewContainerRef, ViewChild } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-brown-bag',
   // templateUrl: './brown-bag.component.html',
@@ -27,9 +29,11 @@ export class BrownBagComponent implements OnInit, AfterViewInit {
   @ViewChild('dynamicInsert', {
     read: ViewContainerRef
   }) dynamicInsert: ViewContainerRef;
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
+    // listen for incoming socket
   }
 
   ngAfterViewInit() {

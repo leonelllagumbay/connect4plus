@@ -84,7 +84,7 @@ export class ConnectFourService implements ISocket, OnInit {
                .fromEvent<any>('msg')
                .map( data => {
                  return data['msg'];
-                } );
+                });
   }
 
   closeSocketConnection() {

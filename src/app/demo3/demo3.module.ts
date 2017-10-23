@@ -32,7 +32,7 @@ const routes: Routes = [{
 }];
 
 const config: SocketIoConfig = {
-url: 'https://calm-meadow-29333.herokuapp.com', options: {}
+  url: 'https://calm-meadow-29333.herokuapp.com', options: {}
 };
 
 @NgModule({

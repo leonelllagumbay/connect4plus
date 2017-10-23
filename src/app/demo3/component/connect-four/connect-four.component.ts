@@ -195,7 +195,7 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
   dropLikeASpaceShip(e) {
     let take = 0;
     for (let a = 0; a < this.matrixData.length - 1; a++) {
-      if (this.matrixData[e][a] === 0) {
+      if (this.matrixData[e][a] === PlayerEnum.Default) {
         take += 1;
         continue;
       }
@@ -222,8 +222,8 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
 
   tellTheWinner() {
     const winner = this._cs.chkWinner(this.matrixData);
-    console.log('winner', winner);
-    if (winner === 0) {
+
+    if (winner === PlayerEnum.Default) {
       // do nothing
     } else  {
       this.hasWinner = true;
@@ -269,9 +269,9 @@ export class ConnectFourComponent implements OnInit, OnDestroy {
 
   updateClick(data_stream: IMakeMyMove): void {
     if (this._cs.getGameId() === data_stream.game_id) { // Make sure its for the desired destination
-        this.opponentIsUpdating = true;
-        this._cs.setTurnId(data_stream.turn_id);
-        this._cs.setMyTurnId('turn' + Math.random().toString());
+      this.opponentIsUpdating = true;
+      this._cs.setTurnId(data_stream.turn_id);
+      this._cs.setMyTurnId('turn' + Math.random().toString());
 
       if (!this.hasWinner) {
         this.dropLikeASpaceShip(data_stream.selected_column);
